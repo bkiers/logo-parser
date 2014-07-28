@@ -1,0 +1,125 @@
+http://www.cs.berkeley.edu/~bh/v1ch3/v1ch3.html
+
+<<<
+to primer :name
+print (sentence first :name [is for] word :name ".)
+print (sentence "Run, word :name ", "run.)
+print (sentence "See :name "run.)
+end
+>>>
+
+<<<
+to soap.opera :him :her :it
+print (sentence :him "loves word :her ".)
+print (sentence "However, :her [doesn't care for] :him "particularly.)
+print (sentence :her [is madly in love with] word :it ".)
+print (sentence :him [doesn't like] :it [very much.])
+end
+>>>
+
+<<<
+to converse
+print [Please type your full name.]
+halves readlist
+end
+
+to halves :name
+print sentence [Your first name is] first :name
+print sentence [Your last name is] last :name
+end
+>>>
+
+<<<
+to ignore :something
+end
+>>>
+
+<<<
+to second :thing
+output first butfirst :thing
+end
+>>>
+
+<<<
+to top :outer :inner
+print [I'm in top.]
+print sentence [:outer is] :outer
+print sentence [:inner is] :inner
+bottom "x
+print [I'm in top again.]
+print sentence [:outer is] :outer
+print sentence [:inner is] :inner
+end
+
+to bottom :inner
+print [I'm in bottom.]
+print sentence [:outer is] :outer
+print sentence [:inner is] :inner
+end
+>>>
+
+<<<
+make "inner "y
+>>>
+
+<<<
+make "new thing "old
+>>>
+
+<<<
+make "new :old
+>>>
+
+<<<
+make first [new old] thing last [new old]
+>>>
+
+<<<
+to new.converse
+local "name
+print [Please type your full name.]
+make "name readlist
+print sentence [Your first name is] first :name
+print sentence [Your last name is] last :name
+end
+>>>
+
+<<<
+make first [new old] thing last [new old]
+>>>
+
+<<<
+to increment :variable
+make :variable (thing :variable)+1
+end
+>>>
+
+<<<
+thing :variable
+>>>
+
+<<<
+thing thing "variable
+>>>
+
+<<<
+to computer.first
+make "computer "X
+make "person "O
+end
+
+to person.first
+make "person "X
+make "computer "O
+end
+>>>
+
+<<<
+to person.move :square
+make word :person "squares sentence :square thing word :person "squares
+end
+>>>
+
+<<<
+word :person "squares
+>>>

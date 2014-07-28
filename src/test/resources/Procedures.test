@@ -1,0 +1,219 @@
+http://www.cs.berkeley.edu/~bh/v1ch2/proced.html
+
+<<<
+print 17
+>>>
+
+<<<
+print sum 2 3
+>>>
+
+<<<
+print sum 4 product 10 2
+>>>
+
+<<<
+print remainder product 4 5
+>>> Not enough inputs to remainder
+
+<<<
+print 2 3
+>>> You don't say what to do with 3
+
+<<<
+print "Hello
+>>>
+
+<<<
+print sum "2 "3
+>>>
+
+<<<
+print [How are you?]
+>>>
+
+<<<
+print [[cherry vanilla] mango [root beer swirl]]
+>>>
+
+<<<
+print first "Hello
+>>>
+
+<<<
+print first [How are you?]
+>>>
+
+<<<
+print butfirst "Hello
+>>>
+
+<<<
+print butfirst [How are you?]
+>>>
+
+<<<
+print " print []
+>>>
+
+<<<
+print item 3 "Yesterday
+>>>
+
+<<<
+print item 2 [Good Day Sunshine]
+>>>
+
+<<<
+print sentence "hello "goodbye
+>>>
+
+<<<
+print sentence [this is] [a test]
+>>>
+
+<<<
+print sentence "this [is one too]
+>>>
+
+<<<
+print sentence [] [list of words]
+>>>
+
+<<<
+print sentence [[list 1a] [list 1b]] [[list 2a] [list 2b]]
+>>>
+
+<<<
+print sentence [flat list] [[not flat] [list]]
+>>>
+
+<<<
+print list [this is] [a test]
+>>>
+
+<<<
+print list "this [is one too]
+>>>
+
+<<<
+print list [] [list of words]
+>>>
+
+<<<
+print word "hello "goodbye
+>>>
+
+<<<
+print word "now "here
+>>>
+
+<<<
+print word "this [is a test]
+>>>
+
+<<<
+print word word last "awful first butfirst "computer first [go to the store, please.]
+>>>
+
+<<<
+print word sum 2 3 product 2 3
+>>>
+
+<<<
+print sum word 2 3 product 2 3
+>>>
+
+<<<
+print sentence sum 2 3 word 2 3
+>>>
+
+<<<
+print count "hello
+>>>
+
+<<<
+print count [hello]
+>>>
+
+<<<
+print count "
+>>>
+
+<<<
+print count []
+>>>
+
+<<<
+print word count "hello count "goodbye
+>>>
+
+<<<
+print sum count "hello count "goodbye
+>>>
+
+<<<
+show [aardvark]
+>>>
+
+<<<
+show "aardvark
+>>>
+
+<<<
+show sentence [this is] [an example]
+>>>
+
+<<<
+show list [this is] [an example]
+>>>
+
+<<<
+print first butfirst butfirst [print the third word]
+>>>
+
+<<<
+print 2+3
+>>>
+
+<<<
+print (sum 2 3 4)
+>>>
+
+<<<
+show (list "one)
+>>>
+
+<<<
+show (list)
+>>>
+
+<<<
+print word (word (last "awful) (first butfirst "computer)) (first [go to the store, please.])
+>>>
+
+<<<
+print word sum 2 4 "es
+>>>
+
+<<<
+print (word "a "b "c)
+>>>
+
+<<<
+to hello
+print "Hello
+print [This is Logo speaking.]
+print [What's new?]
+end
+>>>
+
+<<<
+to A
+print B
+end
+
+to B
+output 42
+end
+>>>

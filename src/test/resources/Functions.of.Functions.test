@@ -1,0 +1,100 @@
+http://www.cs.berkeley.edu/~bh/v1ch5/v1ch5.html
+
+<<<
+to initials :name
+output sentence (first first :name) (first last :name)
+end
+
+show initials [George Harrison]
+>>>
+
+<<<
+to initials :name
+local "result
+make "result []
+for [i 1 [count :name]] ~
+    [make "result sentence :result first (item :i :name)]
+output :result
+end
+>>>
+
+<<<
+for [number 4 7] [print :number]
+>>>
+
+<<<
+for [value 4 11 3] [print :value]
+>>>
+
+<<<
+for [i 7 5] [print :i]
+>>>
+
+<<<
+for [n 15 2 -6] [print :n]
+>>>
+
+<<<
+for [x 15 2 6] [print :x]
+>>>
+
+<<<
+local "i                                  ; initialize index variable
+make "i 1
+
+if (:i > 3) [stop]                        ; testing
+make "result (se :result first "Raymond)  ; action  (result is [R])
+make "i :i+1                              ; incrementing  (i is 2)
+
+if (:i > 3) [stop]                        ; testing
+make "result (se :result first "Douglas)  ; action  (result is [R D])
+make "i :i+1                              ; incrementing  (i is 3)
+
+if (:i > 3) [stop]                        ; testing
+make "result (se :result first "Davies)   ; action  (result is [R D D])
+make "i :i+1                              ; incrementing  (i is 4)
+
+if (:i > 3) [stop]                        ; testing
+>>>
+
+<<<
+show (map "item [2 1 2 3] [john paul george ringo])
+>>>
+
+<<<
+to hangword :secret :guessed
+output map "hangletter :secret
+end
+
+to hangletter :letter
+output ifelse memberp :letter :guessed [:letter] ["_]
+end
+>>>
+
+<<<
+show filter "numberp [76 trombones, 4 calling birds, and 8 days]
+>>>
+
+<<<
+to hangword :secret :guessed
+output map [ifelse memberp ? :guessed [?] ["_]] :secret
+end
+>>>
+
+<<<
+to biggest :nums
+output reduce [ifelse ?1 > ?2 [?1] [?2]] :nums
+end
+>>>
+
+<<<
+show map [sentence ? "Warner] [Yakko Wakko Dot]
+>>>
+
+<<<
+to spellout :card
+output (sentence (butlast :card) "of
+                 (find [equalp last :card first ?]
+                       [hearts spades diamonds clubs]))
+end
+>>>

@@ -1,0 +1,251 @@
+http://www.cs.berkeley.edu/~bh/v1ch4/v1ch4.html
+
+<<<
+print wordp "hello
+>>>
+
+<<<
+print wordp [hello]
+>>>
+
+<<<
+print emptyp []
+>>>
+
+<<<
+print emptyp 0
+>>>
+
+<<<
+print equalp 3 3.0
+>>>
+
+<<<
+print equalp "hello [hello]
+>>>
+
+<<<
+print equalp "hello first [hello]
+>>>
+
+<<<
+print equalp " []
+>>>
+
+<<<
+print equalp [] butfirst [hello]
+>>>
+
+<<<
+print "hello = first [hello]
+>>>
+
+<<<
+print 2 = 3
+>>>
+
+<<<
+print first [hello] = "hello
+>>>
+
+<<<
+print first [hello] = "hello
+>>>
+
+<<<
+print (first [hello]) = "hello
+>>>
+
+<<<
+print first ([hello] = "hello)
+>>>
+
+<<<
+print memberp "rain [the rain in Spain]
+>>>
+
+<<<
+print memberp [the rain] [the rain in Spain]
+>>>
+
+<<<
+print memberp [the rain] [[the rain] in Spain]
+>>>
+
+<<<
+print memberp "e "please
+>>>
+
+<<<
+print memberp "e "plain
+>>>
+
+<<<
+to vowelp :letter
+output memberp :letter [a e i o u]
+end
+
+print vowelp "e
+
+print vowelp "g
+
+to oddp :number
+output equalp (remainder :number 2) 1
+end
+
+print oddp 5
+
+print oddp 8
+>>>
+
+<<<
+if equalp 2 1+1 [print "Yup.]
+>>>
+
+<<<
+if equalp 3 2 [print "Nope.]
+>>>
+
+<<<
+to talk
+local "name
+print [Please type your full name.]
+make "name readlist
+print sentence [Your first name is] first :name
+if (count :name) > 2 ~
+   [print sentence [Your middle name is] first bf :name]
+print sentence [Your last name is] last :name
+end
+>>>
+
+<<<
+to about.computersp :sentence
+if memberp "computer :sentence [output "true]
+if memberp "computers :sentence [output "true]
+if memberp "programming :sentence [output "true]
+output "false
+end
+
+print about.computersp [This book is about programming]
+
+print about.computersp [I like ice cream]
+>>>
+
+<<<
+ifelse 4 = 2+2 [print "Yup.] [print "Nope.]
+>>>
+
+<<<
+ifelse 4 = 3+5 [print "Yup.] [print "Nope.]
+>>>
+
+<<<
+to groupie
+local "name
+print [Hi, who are you?]
+make "name readlist
+ifelse :name = [Ray Davies] ~
+     [print [May I have your autograph?]] ~
+     [print sentence "Hi, first :name]
+end
+
+groupie
+>>>
+
+<<<
+to better.groupie
+local "name
+print [Hi, who are you?]
+make "name readlist
+test equalp :name [Ray Davies]
+iftrue [print [Wow, can I have your autograph?]]
+iftrue [print [And can I borrow a thousand dollars?]]
+iffalse [print sentence [Oh, hello,] first :name]
+end
+>>>
+
+<<<
+to fullp :datum
+output not emptyp :datum
+end
+
+to realwordp :datum
+output and wordp :datum not numberp :datum
+end
+
+to digitp :datum
+output and numberp :datum equalp count :datum 1
+end
+>>>
+
+<<<
+print sentence "It's ifelse 2=3 ["correct] ["incorrect]
+>>>
+
+<<<
+print ifelse emptyp [] [sum 2 3] [product 6 7]
+>>>
+
+<<<
+to abs :number
+output ifelse :number<0 [-:number] [:number]
+end
+>>>
+
+<<<
+ifelse "false ["stupid "list] [print 23]
+>>>
+
+<<<
+ifelse last [true false] list ""stupid ""list list bf "sprint 23
+>>>
+
+<<<
+print ifelse emptyp :a [emptyp :b] [emptyp :c]
+>>>
+
+<<<
+to music.quiz
+print [Who is the greatest musician of all time?]
+if equalp readlist [John Lennon] [print [That's right!] stop]
+print [No, silly, it's John Lennon.]
+end
+>>>
+
+<<<
+ifelse equalp readlist [John Lennon] ~
+    [print [That's right!]] ~
+    [print [No, silly, it's John Lennon.]]
+>>>
+
+<<<
+to quadratic :a :b :c
+local "discriminant
+make "discriminant (:b * :b)-(4 * :a * :c)
+if :discriminant < 0 [print [No solution.] stop]
+make "discriminant sqrt :discriminant
+local "x1
+local "x2
+make "x1 (-:b + :discriminant)/(2 * :a)
+make "x2 (-:b - :discriminant)/(2 * :a)
+print (sentence [x =] :x1 [or] :x2)
+end
+>>>
+
+<<<
+to qa :question :answer
+print :question
+if equalp readlist :answer [print [That's right!] stop]
+print sentence [Sorry, it's] :answer
+end
+
+to quiz
+qa [Who is the best musician of all time?] [John Lennon]
+qa [Who wrote "Compulsory Miseducation"?] [Paul Goodman]
+qa [What color was George Washington's white horse?] [white]
+qa [how much is 2+2?] [5]
+end
+
+qa [Who is the best musician of all time?] ~
+   [[John Lennon] [Lennon] [the Beatles]]
+>>>
