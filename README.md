@@ -51,40 +51,42 @@ all built-in Logo procedures and macros and the number of parameters each expect
 When the parser is instantiated and the `parse` rule is invoked, it makes an
 initial pass over the input collecting all user defined procedures and macros:
 
-    /**
-     * Creates a new instance of a {@code UCBLogoParser} where
-     * any user defined procedures will be resolved in an initial
-     * parse.
-     *
-     * @param input
-     *         the inout stream containing the UCB Logo source
-     *         to parse.
-     */
-    public UCBLogoParser(ANTLRInputStream input) {
+```java
+/**
+ * Creates a new instance of a {@code UCBLogoParser} where
+ * any user defined procedures will be resolved in an initial
+ * parse.
+ *
+ * @param input
+ *         the inout stream containing the UCB Logo source
+ *         to parse.
+ */
+public UCBLogoParser(ANTLRInputStream input) {
 
-      this(new CommonTokenStream(new UCBLogoLexer(input)));
+  this(new CommonTokenStream(new UCBLogoLexer(input)));
 
-      // Create a lexer and parser that will resolve user defined procedures.
-      UCBLogoLexer lexer = new UCBLogoLexer(input);
-      UCBLogoParser parser = new UCBLogoParser(new CommonTokenStream(lexer));
+  // Create a lexer and parser that will resolve user defined procedures.
+  UCBLogoLexer lexer = new UCBLogoLexer(input);
+  UCBLogoParser parser = new UCBLogoParser(new CommonTokenStream(lexer));
 
-      ParseTreeWalker.DEFAULT.walk(new UCBLogoBaseListener(){
+  ParseTreeWalker.DEFAULT.walk(new UCBLogoBaseListener(){
 
-        @Override
-        public void enterProcedure_def(@NotNull UCBLogoParser.Procedure_defContext ctx) {
-          // Yes, we found a procedure: save it in the procedures-map.
-          procedures.put(ctx.NAME().getText(), ctx.variables.amount);
-        }
-
-        // The same for macro-defs
-
-      }, parser.parse());
-
-      // Reset the input stream after having resolved the user defined procedures.
-      input.reset();
-
-      this.discoveredAllProcedures = true;
+    @Override
+    public void enterProcedure_def(@NotNull UCBLogoParser.Procedure_defContext ctx) {
+      // Yes, we found a procedure: save it in the procedures-map.
+      procedures.put(ctx.NAME().getText(), ctx.variables.amount);
     }
+
+    // The same for macro-defs
+
+  }, parser.parse());
+
+  // Reset the input stream after having resolved the user defined procedures.
+  input.reset();
+
+  this.discoveredAllProcedures = true;
+}
+```
 
 On the first pass, the body of a procedure- or macro-definition is parsed
 as a flat list of tokens. And on the second pass, we properly parse the body
