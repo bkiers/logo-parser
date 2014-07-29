@@ -1,5 +1,6 @@
-package lattelogo;
+package lattelogo.parser;
 
+import lattelogo.Main;
 import lattelogo.error.DescriptiveBailErrorListener;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;

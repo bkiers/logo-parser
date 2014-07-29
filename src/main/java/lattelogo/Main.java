@@ -1,5 +1,7 @@
 package lattelogo;
 
+import lattelogo.parser.UCBLogoLexer;
+import lattelogo.parser.UCBLogoParser;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
