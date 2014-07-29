@@ -1,7 +1,6 @@
 package lattelogo.parser;
 
-import lattelogo.lang.NumberValue;
-import lattelogo.lang.StringValue;
+import lattelogo.lang.Value;
 import lattelogo.node.*;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -46,66 +45,6 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     }
 
     @Override
-    public Node visitDivideExpression(@NotNull UCBLogoParser.DivideExpressionContext ctx) {
-        return super.visitDivideExpression(ctx);
-    }
-
-    @Override
-    public Node visitNameExpression(@NotNull UCBLogoParser.NameExpressionContext ctx) {
-        return new LookupNode(ctx.NAME().getText());
-    }
-
-    @Override
-    public Node visitAdditionExpression(@NotNull UCBLogoParser.AdditionExpressionContext ctx) {
-        return super.visitAdditionExpression(ctx);
-    }
-
-    @Override
-    public Node visitQuotedWordExpression(@NotNull UCBLogoParser.QuotedWordExpressionContext ctx) {
-        return new ValueNode(new StringValue(ctx.QUOTED_WORD().getText().substring(1)));
-    }
-
-    @Override
-    public Node visitProcedureCallExpression(@NotNull UCBLogoParser.ProcedureCallExpressionContext ctx) {
-        return super.visitProcedureCallExpression(ctx);
-    }
-
-    @Override
-    public Node visitGreaterThanEqualsExpression(@NotNull UCBLogoParser.GreaterThanEqualsExpressionContext ctx) {
-        return super.visitGreaterThanEqualsExpression(ctx);
-    }
-
-    @Override
-    public Node visitSubtractionExpression(@NotNull UCBLogoParser.SubtractionExpressionContext ctx) {
-        return super.visitSubtractionExpression(ctx);
-    }
-
-    @Override
-    public Node visitBody_def(@NotNull UCBLogoParser.Body_defContext ctx) {
-        return super.visitBody_def(ctx);
-    }
-
-    @Override
-    public Node visitGreaterThanExpression(@NotNull UCBLogoParser.GreaterThanExpressionContext ctx) {
-        return super.visitGreaterThanExpression(ctx);
-    }
-
-    @Override
-    public Node visitEqualsExpression(@NotNull UCBLogoParser.EqualsExpressionContext ctx) {
-        return super.visitEqualsExpression(ctx);
-    }
-
-    @Override
-    public Node visitMacro_def(@NotNull UCBLogoParser.Macro_defContext ctx) {
-        return super.visitMacro_def(ctx);
-    }
-
-    @Override
-    public Node visitLessThanExpression(@NotNull UCBLogoParser.LessThanExpressionContext ctx) {
-        return super.visitLessThanExpression(ctx);
-    }
-
-    @Override
     public Node visitProcedure_call(@NotNull UCBLogoParser.Procedure_callContext ctx) {
 
         String procedureName = ctx.NAME().getText();
@@ -121,103 +60,165 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     }
 
     @Override
-    public Node visitProcedureCallExtraInput(@NotNull UCBLogoParser.ProcedureCallExtraInputContext ctx) {
-        return super.visitProcedureCallExtraInput(ctx);
-    }
-
-    @Override
-    public Node visitLessThanEqualsExpression(@NotNull UCBLogoParser.LessThanEqualsExpressionContext ctx) {
-        return super.visitLessThanEqualsExpression(ctx);
-    }
-
-    @Override
-    public Node visitVariableExpression(@NotNull UCBLogoParser.VariableExpressionContext ctx) {
-        return super.visitVariableExpression(ctx);
-    }
-
-    @Override
-    public Node visitNotEqualsExpressionExpression(@NotNull UCBLogoParser.NotEqualsExpressionExpressionContext ctx) {
-        return super.visitNotEqualsExpressionExpression(ctx);
-    }
-
-    @Override
-    public Node visitList(@NotNull UCBLogoParser.ListContext ctx) {
-        return super.visitList(ctx);
-    }
-
-    @Override
-    public Node visitMultiplyExpression(@NotNull UCBLogoParser.MultiplyExpressionContext ctx) {
-        return super.visitMultiplyExpression(ctx);
-    }
-
-    @Override
-    public Node visitVariables(@NotNull UCBLogoParser.VariablesContext ctx) {
-        return super.visitVariables(ctx);
-    }
-
-    @Override
-    public Node visitExpressions(@NotNull UCBLogoParser.ExpressionsContext ctx) {
-        return super.visitExpressions(ctx);
-    }
-
-    @Override
-    public Node visitProcedure_call_extra_input(@NotNull UCBLogoParser.Procedure_call_extra_inputContext ctx) {
-        return super.visitProcedure_call_extra_input(ctx);
-    }
-
-    @Override
-    public Node visitParensExpression(@NotNull UCBLogoParser.ParensExpressionContext ctx) {
-        return super.visitParensExpression(ctx);
-    }
-
-    @Override
-    public Node visitProcedure_def(@NotNull UCBLogoParser.Procedure_defContext ctx) {
-        return super.visitProcedure_def(ctx);
-    }
-
-    @Override
-    public Node visitUnaryMinusExpression(@NotNull UCBLogoParser.UnaryMinusExpressionContext ctx) {
-        return super.visitUnaryMinusExpression(ctx);
-    }
-
-    @Override
     public Node visitWordExpression(@NotNull UCBLogoParser.WordExpressionContext ctx) {
-        return new ValueNode(new StringValue(ctx.WORD().getText()));
+        return new ValueNode(new Value(ctx.WORD().getText()));
     }
 
     @Override
     public Node visitFloatExpression(@NotNull UCBLogoParser.FloatExpressionContext ctx) {
-        return new ValueNode(new NumberValue(Double.valueOf(ctx.FLOAT().getText())));
+        return new ValueNode(new Value(Double.valueOf(ctx.FLOAT().getText())));
     }
 
     @Override
     public Node visitIntExpression(@NotNull UCBLogoParser.IntExpressionContext ctx) {
-        return new ValueNode(new NumberValue(Long.valueOf(ctx.INT().getText())));
+        return new ValueNode(new Value(Long.valueOf(ctx.INT().getText())));
+    }
+
+    @Override
+    public Node visitNameExpression(@NotNull UCBLogoParser.NameExpressionContext ctx) {
+        return new LookupNameNode(ctx.NAME().getText());
+    }
+
+    @Override
+    public Node visitQuotedWordExpression(@NotNull UCBLogoParser.QuotedWordExpressionContext ctx) {
+        return new ValueNode(new Value(ctx.QUOTED_WORD().getText().substring(1)));
+    }
+
+    @Override
+    public Node visitParensExpression(@NotNull UCBLogoParser.ParensExpressionContext ctx) {
+        return this.visit(ctx.expression());
+    }
+
+    @Override
+    public Node visitVariableExpression(@NotNull UCBLogoParser.VariableExpressionContext ctx) {
+        return new LookupVariableNode(ctx.VARIABLE().getText().substring(1));
+    }
+
+    @Override
+    public Node visitAddExpression(@NotNull UCBLogoParser.AddExpressionContext ctx) {
+        return new AddNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
+    @Override
+    public Node visitDivideExpression(@NotNull UCBLogoParser.DivideExpressionContext ctx) {
+        return new DivideNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
+    @Override
+    public Node visitSubtractExpression(@NotNull UCBLogoParser.SubtractExpressionContext ctx) {
+        return new SubtractNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
+    @Override
+    public Node visitMultiplyExpression(@NotNull UCBLogoParser.MultiplyExpressionContext ctx) {
+        return new MultiplyNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
+    // -------------------------------------------------------------------------------------------------------------- //
+
+    @Override
+    public Node visitProcedureCallExpression(@NotNull UCBLogoParser.ProcedureCallExpressionContext ctx) {
+        throw new RuntimeException("TODO -> visitProcedureCallExpression");
+    }
+
+    @Override
+    public Node visitGreaterThanEqualsExpression(@NotNull UCBLogoParser.GreaterThanEqualsExpressionContext ctx) {
+        throw new RuntimeException("TODO -> visitGreaterThanEqualsExpression");
+    }
+
+    @Override
+    public Node visitBody_def(@NotNull UCBLogoParser.Body_defContext ctx) {
+        throw new RuntimeException("TODO -> visitBody_def");
+    }
+
+    @Override
+    public Node visitGreaterThanExpression(@NotNull UCBLogoParser.GreaterThanExpressionContext ctx) {
+        throw new RuntimeException("TODO -> visitGreaterThanExpression");
+    }
+
+    @Override
+    public Node visitEqualsExpression(@NotNull UCBLogoParser.EqualsExpressionContext ctx) {
+        throw new RuntimeException("TODO -> visitEqualsExpression");
+    }
+
+    @Override
+    public Node visitMacro_def(@NotNull UCBLogoParser.Macro_defContext ctx) {
+        throw new RuntimeException("TODO -> visitMacro_def");
+    }
+
+    @Override
+    public Node visitLessThanExpression(@NotNull UCBLogoParser.LessThanExpressionContext ctx) {
+        throw new RuntimeException("TODO -> visitLessThanExpression");
+    }
+
+    @Override
+    public Node visitProcedureCallExtraInput(@NotNull UCBLogoParser.ProcedureCallExtraInputContext ctx) {
+        throw new RuntimeException("TODO -> visitProcedureCallExtraInput");
+    }
+
+    @Override
+    public Node visitLessThanEqualsExpression(@NotNull UCBLogoParser.LessThanEqualsExpressionContext ctx) {
+        throw new RuntimeException("TODO -> visitLessThanEqualsExpression");
+    }
+
+    @Override
+    public Node visitNotEqualsExpression(@NotNull UCBLogoParser.NotEqualsExpressionContext ctx) {
+        throw new RuntimeException("TODO -> visitNotEqualsExpressionExpression");
+    }
+
+    @Override
+    public Node visitList(@NotNull UCBLogoParser.ListContext ctx) {
+        throw new RuntimeException("TODO -> visitList");
+    }
+
+    @Override
+    public Node visitVariables(@NotNull UCBLogoParser.VariablesContext ctx) {
+        throw new RuntimeException("TODO -> visitVariables");
+    }
+
+    @Override
+    public Node visitExpressions(@NotNull UCBLogoParser.ExpressionsContext ctx) {
+        throw new RuntimeException("TODO -> visitExpressions");
+    }
+
+    @Override
+    public Node visitProcedure_call_extra_input(@NotNull UCBLogoParser.Procedure_call_extra_inputContext ctx) {
+        throw new RuntimeException("TODO -> visitProcedure_call_extra_input");
+    }
+
+    @Override
+    public Node visitProcedure_def(@NotNull UCBLogoParser.Procedure_defContext ctx) {
+        throw new RuntimeException("TODO -> visitProcedure_def");
+    }
+
+    @Override
+    public Node visitUnaryMinusExpression(@NotNull UCBLogoParser.UnaryMinusExpressionContext ctx) {
+        throw new RuntimeException("TODO -> visitUnaryMinusExpression");
     }
 
     @Override
     public Node visitBody_instruction(@NotNull UCBLogoParser.Body_instructionContext ctx) {
-        return super.visitBody_instruction(ctx);
+        throw new RuntimeException("TODO -> visitBody_instruction");
     }
 
     @Override
     public Node visitListExpression(@NotNull UCBLogoParser.ListExpressionContext ctx) {
-        return super.visitListExpression(ctx);
+        throw new RuntimeException("TODO -> visitListExpression");
     }
 
     @Override
     public Node visitArrayExpression(@NotNull UCBLogoParser.ArrayExpressionContext ctx) {
-        return super.visitArrayExpression(ctx);
+        throw new RuntimeException("TODO -> visitArrayExpression");
     }
 
     @Override
     public Node visitArray(@NotNull UCBLogoParser.ArrayContext ctx) {
-        return super.visitArray(ctx);
+        throw new RuntimeException("TODO -> visitArray");
     }
 
     public static void main(String[] args) {
 
-        String source = "make \"xy 666 print xy";
+        String source = "print 2 + 4 print 2 - 4 print 2 * 4 print 2 / 4 print 4 / 2.0";
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser p = new UCBLogoParser(new CommonTokenStream(lexer));

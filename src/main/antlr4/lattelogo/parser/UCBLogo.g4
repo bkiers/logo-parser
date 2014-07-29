@@ -625,14 +625,14 @@ expression
  | NAME                          #nameExpression
  | expression '*' expression     #multiplyExpression
  | expression '/' expression     #divideExpression
- | expression '+' expression     #additionExpression
- | expression '-' expression     #subtractionExpression
+ | expression '+' expression     #addExpression
+ | expression '-' expression     #subtractExpression
  | expression '<' expression     #lessThanExpression
  | expression '>' expression     #greaterThanExpression
  | expression '<=' expression    #lessThanEqualsExpression
  | expression '>=' expression    #greaterThanEqualsExpression
  | expression '=' expression     #equalsExpression
- | expression '<>' expression    #notEqualsExpressionExpression
+ | expression '<>' expression    #notEqualsExpression
  ;
 
 array
