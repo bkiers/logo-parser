@@ -619,7 +619,8 @@ expression
  | list                          #listExpression
  | WORD                          #wordExpression
  | QUOTED_WORD                   #quotedWordExpression
- | NUMBER                        #numberExpression
+ | FLOAT                         #floatExpression
+ | INT                           #intExpression
  | VARIABLE                      #variableExpression
  | NAME                          #nameExpression
  | expression '*' expression     #multiplyExpression
@@ -689,8 +690,13 @@ QUOTED_WORD
  : '"' ( ~[ \t\r\n\[\]();~] | LINE_CONTINUATION | '\\' ( [ \t\[\]();~] | LINE_BREAK ) )*
  ;
 
-NUMBER
- : [0-9]+ ( '.' [0-9]+ )?
+FLOAT
+ : [0-9]* '.' [0-9]+
+ | [0-9]+ '.'
+ ;
+
+INT
+ : [0-9]+
  ;
 
 VARIABLE

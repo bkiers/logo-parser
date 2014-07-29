@@ -9,4 +9,18 @@ public class Value {
     protected Value(Object value) {
         this.value = value;
     }
+
+    public String asString() {
+        return String.valueOf(value);
+    }
+
+    @Override
+    public String toString() {
+
+        if (this == NOTHING) {
+            return "<nothing>";
+        }
+
+        return String.valueOf(value);
+    }
 }
