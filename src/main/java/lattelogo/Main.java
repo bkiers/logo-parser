@@ -71,11 +71,11 @@ public class Main {
         UCBLogoParser parser = new UCBLogoParser(new CommonTokenStream(lexer));
 
         System.out.println("The parse tree before scanning ahead to resolve procedures:\n");
-        System.out.println(toStringASCII(parser.parse()));
+        System.out.println(toStringASCII(parser.script()));
 
         System.out.println("-----------------------------------------------------------");
 
-        ParseTree tree = new UCBLogoParser(source).parse();
+        ParseTree tree = new UCBLogoParser(source).script();
 
         System.out.println("The parse tree before scanning ahead to resolve procedures:\n");
         System.out.println(toStringASCII(tree));

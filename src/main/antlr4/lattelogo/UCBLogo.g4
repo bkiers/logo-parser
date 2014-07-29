@@ -487,7 +487,7 @@ grammar UCBLogo;
         // Yes, we found a macro: save it in the procedures-map.
         procedures.put(ctx.NAME().getText(), ctx.variables.amount);
       }
-    }, parser.parse());
+    }, parser.script());
 
     // Reset the input stream after having resolved the user defined procedures.
     input.reset();
@@ -547,7 +547,7 @@ grammar UCBLogo;
   private int arrayDepth = 0;
 }
 
-parse
+script
  : instruction* EOF
  ;
 

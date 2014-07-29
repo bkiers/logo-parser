@@ -43,7 +43,7 @@ public class RegressionTest {
             parser.removeErrorListeners();
             parser.addErrorListener(errorListener);
 
-            parser.parse();
+            parser.script();
 
             if (error != null) {
                 fail("expected an error for:\n" + source + "\nexpected: " + error);
@@ -104,7 +104,7 @@ public class RegressionTest {
 
         System.out.println("-----------------------------------------------------------");
 
-        ParseTree tree = new UCBLogoParser(source).parse();
+        ParseTree tree = new UCBLogoParser(source).script();
 
         System.out.println(Main.toStringASCII(tree));
     }
