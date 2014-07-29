@@ -218,7 +218,7 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
 
     public static void main(String[] args) {
 
-        String source = "print 2 + 4 print 2 - 4 print 2 * 4 print 2 / 4 print 4 / 2.0";
+        String source = "print \".2 * \"10.";
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser p = new UCBLogoParser(new CommonTokenStream(lexer));

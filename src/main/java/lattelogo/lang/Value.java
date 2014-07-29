@@ -7,7 +7,41 @@ public class Value {
     public final Object value;
 
     public Value(Object value) {
-        this.value = value;
+        this.value = castValue(value);
+    }
+
+    private Object castValue(Object value) {
+
+        if (value == null) {
+            return null;
+        }
+
+        if (value instanceof Double) {
+
+            Double number = (Double) value;
+
+            if (number % 1 == 0.0) {
+                return number.longValue();
+            }
+        }
+        else if (value instanceof String) {
+
+            String string = (String) value;
+
+            if (string.matches("\\d+\\.\\d*|\\.?\\d+")) {
+
+                Double number = Double.valueOf(string);
+
+                if (number % 1 == 0.0) {
+                    return number.longValue();
+                }
+                else {
+                    return number;
+                }
+            }
+        }
+
+        return value;
     }
 
     public double asDouble() {
@@ -23,7 +57,7 @@ public class Value {
     }
 
     public boolean isFloat() {
-        return this.isNumber() && (this.asDouble() != (double) this.asLong());
+        return this.isNumber() && (value instanceof Double);
     }
 
     public boolean isInt() {
