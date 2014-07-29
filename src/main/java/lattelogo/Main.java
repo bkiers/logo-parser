@@ -65,15 +65,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         String source =
-                "to p1 :n             \n" +
-                "  output :n / 2      \n" +
-                "end                  \n" +
-                "                     \n" +
-                "to p2 :n1 :n2        \n" +
-                "  output :n1 + :n2   \n" +
-                "end                  \n" +
-                "                     \n" +
-                "print p1 p2 10 20    \n";
+                "print word word last \"awful first butfirst \"computer first [go to the store, please.]";
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser parser = new UCBLogoParser(new CommonTokenStream(lexer));

@@ -635,21 +635,23 @@ expression
  ;
 
 array
- : '{' ( ~( '{' | '}' ) | array )* '}'
+ : '{' ( WORD | array )* '}'
  ;
 
 list
- : '[' ( ~( '[' | ']' ) | list )* ']'
+ : '[' ( WORD | list )* ']'
+ ;
+
+// This must be the first rule in the lexer: whenever we're in a list or array,
+// we want this rule to take precedence over NAMEs, VARIABLEs, keywords, etc.
+WORD
+ : {listDepth > 0}?  ~[ \t\r\n\[\];] ( ~[ \t\r\n\];~] | LINE_CONTINUATION | '\\' ( [ \t\[\]();~] | LINE_BREAK ) )*
+ | {arrayDepth > 0}? ~[ \t\r\n{};]   ( ~[ \t\r\n};~]  | LINE_CONTINUATION | '\\' ( [ \t{}();~]   | LINE_BREAK ) )*
  ;
 
 TO    : T O;
 END   : E N D;
 MACRO : '.' M A C R O;
-
-WORD
- : {listDepth > 0}?  ~[ \t\r\n\[\];] ( ~[ \t\r\n\];~] | LINE_CONTINUATION | '\\' ( [ \t\[\]();~] | LINE_BREAK ) )*
- | {arrayDepth > 0}? ~[ \t\r\n{};]   ( ~[ \t\r\n};~]  | LINE_CONTINUATION | '\\' ( [ \t{}();~]   | LINE_BREAK ) )*
- ;
 
 SKIP
  : ( COMMENT | LINE_BREAK | SPACES | LINE_CONTINUATION ) -> skip

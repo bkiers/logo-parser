@@ -3,6 +3,7 @@ package lattelogo;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.*;
 
 import java.io.File;
@@ -84,5 +85,26 @@ public class RegressionTest {
                 parse(source, error);
             }
         }
+    }
+
+    //@Test
+    public void debug() throws Exception {
+
+        String source =
+                "print word word last \"awful first butfirst \"computer first [go to the store, please.]";
+
+        UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
+        UCBLogoParser parser = new UCBLogoParser(new CommonTokenStream(lexer));
+
+        for (Token t : lexer.getAllTokens()) {
+            System.out.printf("%-15s '%s'\n",
+                    parser.getTokenNames()[t.getType()], t.getText().replace("\n", "\\n"));
+        }
+
+        System.out.println("-----------------------------------------------------------");
+
+        ParseTree tree = new UCBLogoParser(source).parse();
+
+        System.out.println(Main.toStringASCII(tree));
     }
 }
