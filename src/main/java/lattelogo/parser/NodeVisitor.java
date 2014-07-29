@@ -114,6 +114,36 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
         return new MultiplyNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
     }
 
+    @Override
+    public Node visitLessThanExpression(@NotNull UCBLogoParser.LessThanExpressionContext ctx) {
+        return new LessThanNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
+    @Override
+    public Node visitGreaterThanExpression(@NotNull UCBLogoParser.GreaterThanExpressionContext ctx) {
+        return new GreaterThanNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
+    @Override
+    public Node visitEqualsExpression(@NotNull UCBLogoParser.EqualsExpressionContext ctx) {
+        return new EqualsNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
+    @Override
+    public Node visitLessThanEqualsExpression(@NotNull UCBLogoParser.LessThanEqualsExpressionContext ctx) {
+        return new LessThanEqualsNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
+    @Override
+    public Node visitNotEqualsExpression(@NotNull UCBLogoParser.NotEqualsExpressionContext ctx) {
+        return new NotEqualsNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
+    @Override
+    public Node visitGreaterThanEqualsExpression(@NotNull UCBLogoParser.GreaterThanEqualsExpressionContext ctx) {
+        return new GreaterThanEqualsNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
+    }
+
     // -------------------------------------------------------------------------------------------------------------- //
 
     @Override
@@ -122,23 +152,8 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     }
 
     @Override
-    public Node visitGreaterThanEqualsExpression(@NotNull UCBLogoParser.GreaterThanEqualsExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitGreaterThanEqualsExpression");
-    }
-
-    @Override
     public Node visitBody_def(@NotNull UCBLogoParser.Body_defContext ctx) {
         throw new RuntimeException("TODO -> visitBody_def");
-    }
-
-    @Override
-    public Node visitGreaterThanExpression(@NotNull UCBLogoParser.GreaterThanExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitGreaterThanExpression");
-    }
-
-    @Override
-    public Node visitEqualsExpression(@NotNull UCBLogoParser.EqualsExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitEqualsExpression");
     }
 
     @Override
@@ -147,23 +162,8 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     }
 
     @Override
-    public Node visitLessThanExpression(@NotNull UCBLogoParser.LessThanExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitLessThanExpression");
-    }
-
-    @Override
     public Node visitProcedureCallExtraInput(@NotNull UCBLogoParser.ProcedureCallExtraInputContext ctx) {
         throw new RuntimeException("TODO -> visitProcedureCallExtraInput");
-    }
-
-    @Override
-    public Node visitLessThanEqualsExpression(@NotNull UCBLogoParser.LessThanEqualsExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitLessThanEqualsExpression");
-    }
-
-    @Override
-    public Node visitNotEqualsExpression(@NotNull UCBLogoParser.NotEqualsExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitNotEqualsExpressionExpression");
     }
 
     @Override
@@ -218,7 +218,7 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
 
     public static void main(String[] args) {
 
-        String source = "print \".2 * \"10.";
+        String source = "print 1 <= 2 print 1 = 1 print 1 <> 0";
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser p = new UCBLogoParser(new CommonTokenStream(lexer));

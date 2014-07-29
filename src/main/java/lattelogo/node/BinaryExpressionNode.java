@@ -10,7 +10,13 @@ public abstract class BinaryExpressionNode extends Node {
         ADD("+"),
         SUBTRACT("-"),
         MULTIPLY("*"),
-        DIVIDE("/");
+        DIVIDE("/"),
+        LESS_THAN("<"),
+        GREATER_THAN(">"),
+        LESS_THAN_EQUALS("<="),
+        GREATER_THAN_EQUALS(">="),
+        EQUALS("="),
+        NOT_EQUALS("<>");
 
         private final String label;
 
@@ -41,6 +47,7 @@ public abstract class BinaryExpressionNode extends Node {
         Value right = this.rhs.eval(scope);
 
         if (left.isNumber() && right.isNumber()) {
+
             switch (this.operator) {
                 case ADD:
                     return new Value(left.asDouble() + right.asDouble());
@@ -50,6 +57,18 @@ public abstract class BinaryExpressionNode extends Node {
                     return new Value(left.asDouble() * right.asDouble());
                 case DIVIDE:
                     return new Value(left.asDouble() / right.asDouble());
+                case LESS_THAN:
+                    return left.asDouble() < right.asDouble() ? Value.TRUE : Value.FALSE;
+                case GREATER_THAN:
+                    return left.asDouble() > right.asDouble() ? Value.TRUE : Value.FALSE;
+                case LESS_THAN_EQUALS:
+                    return left.asDouble() <= right.asDouble() ? Value.TRUE : Value.FALSE;
+                case GREATER_THAN_EQUALS:
+                    return left.asDouble() >= right.asDouble() ? Value.TRUE : Value.FALSE;
+                case EQUALS:
+                    return left.asDouble() == right.asDouble() ? Value.TRUE : Value.FALSE;
+                case NOT_EQUALS:
+                    return left.asDouble() != right.asDouble() ? Value.TRUE : Value.FALSE;
                 default:
                     throw new RuntimeException("unknown operator: " + this.operator);
             }

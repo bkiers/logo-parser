@@ -3,6 +3,8 @@ package lattelogo.lang;
 public class Value {
 
     public static final Value NOTHING = new Value(null);
+    public static final Value TRUE = new Value("true");
+    public static final Value FALSE = new Value("false");
 
     public final Object value;
 
