@@ -30,7 +30,7 @@ public class Value {
 
             String string = (String) value;
 
-            if (string.matches("\\d+\\.\\d*|\\.?\\d+")) {
+            if (string.matches("-?(\\d+\\.\\d*|\\.?\\d+)")) {
 
                 Double number = Double.valueOf(string);
 
@@ -56,6 +56,27 @@ public class Value {
 
     public String asString() {
         return String.valueOf(value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        if (o == this) {
+            return true;
+        }
+
+        Value that = (Value) o;
+
+        return this.value.equals(that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.value == null ? 0 : this.value.hashCode();
     }
 
     public boolean isFloat() {

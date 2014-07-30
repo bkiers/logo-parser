@@ -1,6 +1,5 @@
 package lattelogo.node;
 
-import lattelogo.lang.LSystem;
 import lattelogo.lang.Value;
 
 public abstract class BinaryExpressionNode extends Node {
@@ -46,7 +45,13 @@ public abstract class BinaryExpressionNode extends Node {
         Value left = this.lhs.eval(scope);
         Value right = this.rhs.eval(scope);
 
-        if (left.isNumber() && right.isNumber()) {
+        if (this.operator == Operator.EQUALS) {
+            return left.equals(right) ? Value.TRUE : Value.FALSE;
+        }
+        else if(this.operator == Operator.NOT_EQUALS) {
+            return left.equals(right) ? Value.FALSE : Value.TRUE;
+        }
+        else if (left.isNumber() && right.isNumber()) {
 
             switch (this.operator) {
                 case ADD:
@@ -65,10 +70,6 @@ public abstract class BinaryExpressionNode extends Node {
                     return left.asDouble() <= right.asDouble() ? Value.TRUE : Value.FALSE;
                 case GREATER_THAN_EQUALS:
                     return left.asDouble() >= right.asDouble() ? Value.TRUE : Value.FALSE;
-                case EQUALS:
-                    return left.asDouble() == right.asDouble() ? Value.TRUE : Value.FALSE;
-                case NOT_EQUALS:
-                    return left.asDouble() != right.asDouble() ? Value.TRUE : Value.FALSE;
                 default:
                     throw new RuntimeException("unknown operator: " + this.operator);
             }
@@ -76,12 +77,10 @@ public abstract class BinaryExpressionNode extends Node {
 
         // At least one of the values is not a number.
         if (!left.isNumber()) {
-            LSystem.err.println(this.operator + " doesn't like " + left + " as input");
+            throw new RuntimeException(this.operator + " doesn't like " + left + " as input");
         }
         else {
-            LSystem.err.println(this.operator + " doesn't like " + right + " as input");
+            throw new RuntimeException(this.operator + " doesn't like " + right + " as input");
         }
-
-        return Value.NOTHING;
     }
 }
