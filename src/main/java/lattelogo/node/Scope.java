@@ -28,6 +28,6 @@ public class Scope {
             return this.parent.resolve(name);
         }
 
-        return Value.NOTHING;
+        throw new RuntimeException(name + " has no value");
     }
 }

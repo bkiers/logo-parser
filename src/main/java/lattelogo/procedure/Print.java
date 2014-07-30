@@ -19,9 +19,9 @@ import lattelogo.node.Scope;
  * </code>
  * </pre>
  */
-public class PrintProcedure extends Procedure {
+public class Print extends Procedure {
 
-    public PrintProcedure() {
+    protected Print() {
         super(new String[]{"print", "pr"}, 1, true);
     }
 

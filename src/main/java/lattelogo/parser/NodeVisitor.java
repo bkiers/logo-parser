@@ -168,6 +168,11 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     }
 
     @Override
+    public Node visitProcedureCallExpression(@NotNull UCBLogoParser.ProcedureCallExpressionContext ctx) {
+        return this.visit(ctx.procedure_call());
+    }
+
+    @Override
     public Node visitListExpression(@NotNull UCBLogoParser.ListExpressionContext ctx) {
         return this.visit(ctx.list());
     }
@@ -224,11 +229,6 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     // -------------------------------------------------------------------------------------------------------------- //
 
     @Override
-    public Node visitProcedureCallExpression(@NotNull UCBLogoParser.ProcedureCallExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitProcedureCallExpression");
-    }
-
-    @Override
     public Node visitBody_def(@NotNull UCBLogoParser.Body_defContext ctx) {
         throw new RuntimeException("TODO -> visitBody_def");
     }
@@ -260,7 +260,7 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
 
     public static void main(String[] args) {
 
-        String source = "(make \"x 333) (print x x x)";
+        String source = " make \"1 \"ONE print thing 2-1+\"0";
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser p = new UCBLogoParser(new CommonTokenStream(lexer));

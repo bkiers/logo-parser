@@ -15,9 +15,9 @@ import lattelogo.node.Scope;
  * </code>
  * </pre>
  */
-public class MakeProcedure extends Procedure {
+public class Make extends Procedure {
 
-    public MakeProcedure() {
+    protected Make() {
         super("make", 1, false);
     }
 
