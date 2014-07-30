@@ -34,6 +34,8 @@ public class Print extends Procedure {
             System.out.print(value + " ");
         }
 
+        System.out.println();
+
         return Value.NOTHING;
     }
 }

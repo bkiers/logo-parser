@@ -59,6 +59,10 @@ public class Value {
         return (LogoList) value;
     }
 
+    public LogoCollection asCollection() {
+        return (LogoCollection) value;
+    }
+
     public long asLong() {
         return (long) this.asDouble();
     }
@@ -90,6 +94,10 @@ public class Value {
 
     public boolean isArray() {
         return (value != null) && (value instanceof LogoArray);
+    }
+
+    public boolean isCollection() {
+        return this.isArray() || this.isList();
     }
 
     public boolean isFloat() {

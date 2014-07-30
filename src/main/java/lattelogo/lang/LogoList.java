@@ -3,7 +3,7 @@ package lattelogo.lang;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogoList {
+public class LogoList implements LogoCollection {
 
     private final List<Value> values;
 
@@ -11,9 +11,14 @@ public class LogoList {
         this.values = new ArrayList<>();
     }
 
-
+    @Override
     public void add(Value value) {
         this.values.add(value);
+    }
+
+    @Override
+    public Value get(int index) {
+        return this.values.get(index - 1);
     }
 
     @Override

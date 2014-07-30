@@ -4,6 +4,8 @@ import lattelogo.lang.Value;
 import lattelogo.node.Scope;
 
 /**
+ * <pre>
+ * <code>
  * THING varname
  * :quoted.varname
  *
@@ -15,6 +17,8 @@ import lattelogo.node.Scope;
  *     thing "
  *
  *     so that :FOO means THING "FOO.
+ * </code>
+ * </pre>
  */
 public class Thing extends Procedure {
 

@@ -260,7 +260,7 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
 
     public static void main(String[] args) {
 
-        String source = " make \"1 \"ONE print thing 2-1+\"0";
+        String source = "print item 0 \"xyz print item 1 [X Y Z]";
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser p = new UCBLogoParser(new CommonTokenStream(lexer));
