@@ -144,6 +144,21 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
         return new GreaterThanEqualsNode(this.visit(ctx.expression(0)), this.visit(ctx.expression(1)));
     }
 
+    @Override
+    public Node visitUnaryMinusExpression(@NotNull UCBLogoParser.UnaryMinusExpressionContext ctx) {
+        return new MultiplyNode(new ValueNode(new Value(-1)), this.visit(ctx.expression()));
+    }
+
+    @Override
+    public Node visitListExpression(@NotNull UCBLogoParser.ListExpressionContext ctx) {
+        throw new RuntimeException("TODO -> visitListExpression");
+    }
+
+    @Override
+    public Node visitList(@NotNull UCBLogoParser.ListContext ctx) {
+        throw new RuntimeException("TODO -> visitList");
+    }
+
     // -------------------------------------------------------------------------------------------------------------- //
 
     @Override
@@ -167,11 +182,6 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     }
 
     @Override
-    public Node visitList(@NotNull UCBLogoParser.ListContext ctx) {
-        throw new RuntimeException("TODO -> visitList");
-    }
-
-    @Override
     public Node visitVariables(@NotNull UCBLogoParser.VariablesContext ctx) {
         throw new RuntimeException("TODO -> visitVariables");
     }
@@ -192,18 +202,8 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     }
 
     @Override
-    public Node visitUnaryMinusExpression(@NotNull UCBLogoParser.UnaryMinusExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitUnaryMinusExpression");
-    }
-
-    @Override
     public Node visitBody_instruction(@NotNull UCBLogoParser.Body_instructionContext ctx) {
         throw new RuntimeException("TODO -> visitBody_instruction");
-    }
-
-    @Override
-    public Node visitListExpression(@NotNull UCBLogoParser.ListExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitListExpression");
     }
 
     @Override
@@ -218,7 +218,7 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
 
     public static void main(String[] args) {
 
-        String source = "print 1 <= 2 print 1 = \"1 print 1 <> 0";
+        String source = "print --1";
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser p = new UCBLogoParser(new CommonTokenStream(lexer));
