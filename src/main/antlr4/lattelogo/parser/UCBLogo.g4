@@ -636,11 +636,21 @@ expression
  ;
 
 array
- : '{' ( WORD | array )* '}'
+ : '{' array_item* '}'
+ ;
+
+array_item
+ : WORD    #arrayItemWord
+ | array   #arrayItemArray
  ;
 
 list
- : '[' ( WORD | list )* ']'
+ : '[' list_item* ']'
+ ;
+
+list_item
+ : WORD   #listItemWord
+ | list   #listItemList
  ;
 
 // This must be the first rule in the lexer: whenever we're in a list or array,

@@ -151,13 +151,58 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
 
     @Override
     public Node visitListExpression(@NotNull UCBLogoParser.ListExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitListExpression");
+        return this.visit(ctx.list());
     }
 
     @Override
     public Node visitList(@NotNull UCBLogoParser.ListContext ctx) {
-        throw new RuntimeException("TODO -> visitList");
+
+        ListNode node = new ListNode();
+
+        for (UCBLogoParser.List_itemContext listItem : ctx.list_item()) {
+            node.addItem(this.visit(listItem));
+        }
+
+        return node;
     }
+
+    @Override
+    public Node visitListItemWord(@NotNull UCBLogoParser.ListItemWordContext ctx) {
+        return new ValueNode(new Value(ctx.WORD().getText()));
+    }
+
+    @Override
+    public Node visitListItemList(@NotNull UCBLogoParser.ListItemListContext ctx) {
+        return super.visit(ctx.list());
+    }
+
+    @Override
+    public Node visitArrayExpression(@NotNull UCBLogoParser.ArrayExpressionContext ctx) {
+        return this.visit(ctx.array());
+    }
+
+    @Override
+    public Node visitArray(@NotNull UCBLogoParser.ArrayContext ctx) {
+
+        ArrayNode node = new ArrayNode();
+
+        for (UCBLogoParser.Array_itemContext arrayItem : ctx.array_item()) {
+            node.addItem(this.visit(arrayItem));
+        }
+
+        return node;
+    }
+
+    @Override
+    public Node visitArrayItemWord(@NotNull UCBLogoParser.ArrayItemWordContext ctx) {
+        return new ValueNode(new Value(ctx.WORD().getText()));
+    }
+
+    @Override
+    public Node visitArrayItemArray(@NotNull UCBLogoParser.ArrayItemArrayContext ctx) {
+        return super.visit(ctx.array());
+    }
+    // TODO
 
     // -------------------------------------------------------------------------------------------------------------- //
 
@@ -206,19 +251,9 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
         throw new RuntimeException("TODO -> visitBody_instruction");
     }
 
-    @Override
-    public Node visitArrayExpression(@NotNull UCBLogoParser.ArrayExpressionContext ctx) {
-        throw new RuntimeException("TODO -> visitArrayExpression");
-    }
-
-    @Override
-    public Node visitArray(@NotNull UCBLogoParser.ArrayContext ctx) {
-        throw new RuntimeException("TODO -> visitArray");
-    }
-
     public static void main(String[] args) {
 
-        String source = "print --1";
+        String source = "print [1 + [2 , 3]] print {1 + {2 , 3}}";
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser p = new UCBLogoParser(new CommonTokenStream(lexer));

@@ -7,6 +7,7 @@ public class Value {
     public static final Value FALSE = new Value("false");
 
     public final Object value;
+    private boolean list;
 
     public Value(Object value) {
         this.value = castValue(value);
@@ -46,8 +47,16 @@ public class Value {
         return value;
     }
 
+    public LogoArray asArray() {
+        return (LogoArray) value;
+    }
+
     public double asDouble() {
         return Double.valueOf(String.valueOf(value));
+    }
+
+    public LogoList asList() {
+        return (LogoList) value;
     }
 
     public long asLong() {
@@ -79,6 +88,10 @@ public class Value {
         return this.value == null ? 0 : this.value.hashCode();
     }
 
+    public boolean isArray() {
+        return (value != null) && (value instanceof LogoArray);
+    }
+
     public boolean isFloat() {
         return this.isNumber() && (value instanceof Double);
     }
@@ -89,6 +102,10 @@ public class Value {
 
     public boolean isNumber() {
         return (value != null) && (value instanceof Number);
+    }
+
+    public boolean isList() {
+        return (value != null) && (value instanceof LogoList);
     }
 
     @Override
