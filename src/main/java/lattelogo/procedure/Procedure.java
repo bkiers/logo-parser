@@ -18,22 +18,35 @@ public abstract class Procedure {
 
     protected final String[] names;
     protected final int totalParams;
+    protected final boolean extraParams;
 
-    protected Procedure(String name) {
-        this(new String[]{name});
+    protected Procedure(String name, boolean extraParams) {
+        this(new String[]{name}, extraParams);
     }
 
-    protected Procedure(String name, int totalParams) {
-        this(new String[]{name}, totalParams);
+    protected Procedure(String name, int totalParams, boolean extraParams) {
+        this(new String[]{name}, totalParams, extraParams);
     }
 
-    protected Procedure(String[] names) {
-        this(names, 0);
+    protected Procedure(String[] names, boolean extraParams) {
+        this(names, 0, extraParams);
     }
 
-    protected Procedure(String[] names, int totalParams) {
+    protected Procedure(String[] names, int totalParams, boolean extraParams) {
         this.names = names;
         this.totalParams = totalParams;
+        this.extraParams = extraParams;
+    }
+
+    protected void checkParams(Value[] params) {
+
+        if (params.length < totalParams) {
+            throw new RuntimeException("not enough inputs to " + names[0]);
+        }
+
+        if (((params.length - 1) > totalParams) && !extraParams) {
+            throw new RuntimeException("too many inputs to " + names[0]);
+        }
     }
 
     public Value invoke(Scope scope, Collection<Value> params) {

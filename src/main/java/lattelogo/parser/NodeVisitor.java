@@ -60,6 +60,24 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     }
 
     @Override
+    public Node visitProcedure_call_extra_input(@NotNull UCBLogoParser.Procedure_call_extra_inputContext ctx) {
+
+        String procedureName = ctx.NAME().getText();
+        List<Node> expressions = new ArrayList<>();
+
+        for (UCBLogoParser.ExpressionContext expressionContext : ctx.expression()) {
+            expressions.add(this.visit(expressionContext));
+        }
+
+        return new ProcedureCallNode(procedureName, expressions);
+    }
+
+    @Override
+    public Node visitProcedureCallExtraInputExpression(@NotNull UCBLogoParser.ProcedureCallExtraInputExpressionContext ctx) {
+        return this.visit(ctx.procedure_call_extra_input());
+    }
+
+    @Override
     public Node visitWordExpression(@NotNull UCBLogoParser.WordExpressionContext ctx) {
         return new ValueNode(new Value(ctx.WORD().getText()));
     }
@@ -202,7 +220,6 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     public Node visitArrayItemArray(@NotNull UCBLogoParser.ArrayItemArrayContext ctx) {
         return super.visit(ctx.array());
     }
-    // TODO
 
     // -------------------------------------------------------------------------------------------------------------- //
 
@@ -222,11 +239,6 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     }
 
     @Override
-    public Node visitProcedureCallExtraInput(@NotNull UCBLogoParser.ProcedureCallExtraInputContext ctx) {
-        throw new RuntimeException("TODO -> visitProcedureCallExtraInput");
-    }
-
-    @Override
     public Node visitVariables(@NotNull UCBLogoParser.VariablesContext ctx) {
         throw new RuntimeException("TODO -> visitVariables");
     }
@@ -234,11 +246,6 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
     @Override
     public Node visitExpressions(@NotNull UCBLogoParser.ExpressionsContext ctx) {
         throw new RuntimeException("TODO -> visitExpressions");
-    }
-
-    @Override
-    public Node visitProcedure_call_extra_input(@NotNull UCBLogoParser.Procedure_call_extra_inputContext ctx) {
-        throw new RuntimeException("TODO -> visitProcedure_call_extra_input");
     }
 
     @Override
@@ -253,7 +260,7 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
 
     public static void main(String[] args) {
 
-        String source = "print [1 + [2 , 3]] print {1 + {2 , 3}}";
+        String source = "(make \"x 333) (print x x x)";
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser p = new UCBLogoParser(new CommonTokenStream(lexer));

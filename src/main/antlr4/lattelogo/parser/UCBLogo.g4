@@ -612,7 +612,7 @@ locals[int n = 0]      // a counter to keep track of how many expressions we've 
 
 expression
  : '-' expression                #unaryMinusExpression
- | procedure_call_extra_input    #procedureCallExtraInput
+ | procedure_call_extra_input    #procedureCallExtraInputExpression
  | procedure_call                #procedureCallExpression
  | '(' expression ')'            #parensExpression
  | array                         #arrayExpression
