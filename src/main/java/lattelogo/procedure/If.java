@@ -66,6 +66,8 @@ public class If extends Procedure {
 
             if (possibleList.isList()) {
 
+                // TODO refactor the parser instantiation
+                
                 Value value = Value.NOTHING;
                 LogoList list = possibleList.asList();
                 UCBLogoParser parser = new UCBLogoParser(new ANTLRInputStream(list.asSource()), false);
