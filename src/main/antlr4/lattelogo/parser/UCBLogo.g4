@@ -470,7 +470,18 @@ grammar UCBLogo;
     this(input, true);
   }
 
-  // TODO
+  /**
+   * Creates a new instance of a {@code UCBLogoParser} where
+   * any user defined procedures will be resolved in an initial
+   * parse.
+   *
+   * @param input
+   *         the inout stream containing the UCB Logo source
+   *         to parse.
+   * @param discoverProcedures
+   *         if the parser needs to perform a scan ahead to see
+   *         if the input contains user defined procedures.
+   */
   public UCBLogoParser(ANTLRInputStream input, boolean discoverProcedures) {
 
     this(new CommonTokenStream(new UCBLogoLexer(input)));
