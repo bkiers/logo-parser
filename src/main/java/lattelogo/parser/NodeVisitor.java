@@ -260,7 +260,14 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
 
     public static void main(String[] args) {
 
-        String source = "(if \"false [print \"a] [print \"b])";
+        /*
+            ? make "a "AAA
+            ? print if "true "a
+            AAA
+            ? print if "true ["a]
+            a
+        */
+        String source = "make \"a \"AAA print if \"true \"a print if \"true [\"a]"; //"print (if \"true [\"a])";
 
         System.out.println(source);
 

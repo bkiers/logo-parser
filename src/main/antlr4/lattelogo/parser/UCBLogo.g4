@@ -467,32 +467,40 @@ grammar UCBLogo;
    *         to parse.
    */
   public UCBLogoParser(ANTLRInputStream input) {
+    this(input, true);
+  }
+
+  // TODO
+  public UCBLogoParser(ANTLRInputStream input, boolean discoverProcedures) {
 
     this(new CommonTokenStream(new UCBLogoLexer(input)));
 
-    // Create a lexer and parser that will resolve user defined procedures.
-    UCBLogoLexer lexer = new UCBLogoLexer(input);
-    UCBLogoParser parser = new UCBLogoParser(new CommonTokenStream(lexer));
+    if (discoverProcedures) {
 
-    ParseTreeWalker.DEFAULT.walk(new UCBLogoBaseListener(){
+      // Create a lexer and parser that will resolve user defined procedures.
+      UCBLogoLexer lexer = new UCBLogoLexer(input);
+      UCBLogoParser parser = new UCBLogoParser(new CommonTokenStream(lexer));
 
-      @Override
-      public void enterProcedure_def(@NotNull UCBLogoParser.Procedure_defContext ctx) {
-        // Yes, we found a procedure: save it in the procedures-map.
-        procedures.put(ctx.NAME().getText(), ctx.variables.amount);
-      }
+      ParseTreeWalker.DEFAULT.walk(new UCBLogoBaseListener(){
 
-      @Override
-      public void enterMacro_def(@NotNull UCBLogoParser.Macro_defContext ctx) {
-        // Yes, we found a macro: save it in the procedures-map.
-        procedures.put(ctx.NAME().getText(), ctx.variables.amount);
-      }
-    }, parser.script());
+        @Override
+        public void enterProcedure_def(@NotNull UCBLogoParser.Procedure_defContext ctx) {
+          // Yes, we found a procedure: save it in the procedures-map.
+          procedures.put(ctx.NAME().getText(), ctx.variables.amount);
+        }
 
-    // Reset the input stream after having resolved the user defined procedures.
-    input.reset();
+        @Override
+        public void enterMacro_def(@NotNull UCBLogoParser.Macro_defContext ctx) {
+          // Yes, we found a macro: save it in the procedures-map.
+          procedures.put(ctx.NAME().getText(), ctx.variables.amount);
+        }
+      }, parser.script());
 
-    this.discoveredAllProcedures = true;
+      // Reset the input stream after having resolved the user defined procedures.
+      input.reset();
+
+      this.discoveredAllProcedures = true;
+    }
   }
 
   /**

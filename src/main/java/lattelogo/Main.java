@@ -66,20 +66,22 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String source =
-                "print word word last \"awful first butfirst \"computer first [go to the store, please.]";
+//        String source =
+//                "print word word last \"awful first butfirst \"computer first [go to the store, please.]";
+//
+//        UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
+//        UCBLogoParser parser = new UCBLogoParser(new CommonTokenStream(lexer));
+//
+//        System.out.println("The parse tree before scanning ahead to resolve procedures:\n");
+//        System.out.println(toStringASCII(parser.script()));
+//
+//        System.out.println("-----------------------------------------------------------");
+//
+//        ParseTree tree = new UCBLogoParser(source).script();
+//
+//        System.out.println("The parse tree before scanning ahead to resolve procedures:\n");
+//        System.out.println(toStringASCII(tree));
 
-        UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
-        UCBLogoParser parser = new UCBLogoParser(new CommonTokenStream(lexer));
-
-        System.out.println("The parse tree before scanning ahead to resolve procedures:\n");
-        System.out.println(toStringASCII(parser.script()));
-
-        System.out.println("-----------------------------------------------------------");
-
-        ParseTree tree = new UCBLogoParser(source).script();
-
-        System.out.println("The parse tree before scanning ahead to resolve procedures:\n");
-        System.out.println(toStringASCII(tree));
+        new UCBLogoParser(new ANTLRInputStream("\"a"), false).expression();
     }
 }

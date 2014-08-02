@@ -13,6 +13,7 @@ public abstract class Procedure {
 
     static {
         put(new If());
+        put(new IfElse());
         put(new Item());
         put(new Make());
         put(new Print());
