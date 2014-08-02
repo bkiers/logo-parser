@@ -16,6 +16,15 @@ public class LogoList implements LogoCollection {
         this.values.add(value);
     }
 
+    public String asSource() {
+
+        StringBuilder builder = new StringBuilder();
+
+        fill(this, builder, 0);
+
+        return builder.toString();
+    }
+
     @Override
     public Value get(int index) {
         return this.values.get(index - 1);
@@ -23,12 +32,7 @@ public class LogoList implements LogoCollection {
 
     @Override
     public String toString() {
-
-        StringBuilder builder = new StringBuilder();
-
-        fill(this, builder, 0);
-
-        return builder.toString();
+        return this.asSource();
     }
 
     private void fill(LogoList list, StringBuilder builder, int nestedLists) {

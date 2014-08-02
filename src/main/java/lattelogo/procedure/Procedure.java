@@ -12,6 +12,7 @@ public abstract class Procedure {
     private static final Map<String, Procedure> PROCEDURES = new HashMap<>();
 
     static {
+        put(new If());
         put(new Item());
         put(new Make());
         put(new Print());

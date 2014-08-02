@@ -260,7 +260,11 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
 
     public static void main(String[] args) {
 
-        String source = "print item 0 \"xyz print item 1 [X Y Z]";
+        String source = "(if \"false [print \"a] [print \"b])";
+
+        System.out.println(source);
+
+        System.out.println("-----------------------------------");
 
         UCBLogoLexer lexer = new UCBLogoLexer(new ANTLRInputStream(source));
         UCBLogoParser p = new UCBLogoParser(new CommonTokenStream(lexer));
@@ -273,6 +277,6 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
         UCBLogoParser parser = new UCBLogoParser(source);
         NodeVisitor visitor = new NodeVisitor();
         Node root = visitor.visit(parser.script());
-        root.eval(null);
+        root.eval();
     }
 }

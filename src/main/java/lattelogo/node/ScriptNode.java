@@ -22,9 +22,7 @@ public class ScriptNode extends Node {
     @Override
     public Value eval(Scope scope) {
 
-        if (scope != null) {
-            // TODO set parent of this scriptScope?
-        }
+        this.scriptScope.setParent(scope);
 
         for (Node node : instructions) {
 

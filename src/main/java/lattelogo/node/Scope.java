@@ -30,4 +30,8 @@ public class Scope {
 
         throw new RuntimeException(name + " has no value");
     }
+
+    public void setParent(Scope parent) {
+        this.parent = parent;
+    }
 }

@@ -8,6 +8,7 @@ public class Value {
 
     public final Object value;
     private boolean list;
+    private boolean aBoolean;
 
     public Value(Object value) {
         this.value = castValue(value);
@@ -49,6 +50,10 @@ public class Value {
 
     public LogoArray asArray() {
         return (LogoArray) value;
+    }
+
+    public boolean asBoolean() {
+        return Boolean.valueOf(String.valueOf(this.value));
     }
 
     public double asDouble() {
@@ -94,6 +99,10 @@ public class Value {
 
     public boolean isArray() {
         return (value != null) && (value instanceof LogoArray);
+    }
+
+    public boolean isBoolean() {
+        return (value != null) && String.valueOf(this.value).matches("(?m)(true|false)");
     }
 
     public boolean isCollection() {
