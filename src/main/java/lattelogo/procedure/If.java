@@ -6,6 +6,7 @@ import lattelogo.lang.Value;
 import lattelogo.node.Node;
 import lattelogo.node.Scope;
 import lattelogo.parser.NodeVisitor;
+import lattelogo.parser.ParserUtils;
 import lattelogo.parser.UCBLogoLexer;
 import lattelogo.parser.UCBLogoParser;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -66,26 +67,18 @@ public class If extends Procedure {
 
             if (possibleList.isList()) {
 
-                // TODO refactor the parser instantiation
-
                 Value value = Value.NOTHING;
-                LogoList list = possibleList.asList();
-                UCBLogoParser parser = new UCBLogoParser(new ANTLRInputStream(list.asSource()), false);
-                parser.removeErrorListeners();
-                parser.addErrorListener(DescriptiveBailErrorListener.INSTANCE);
-
                 NodeVisitor visitor = new NodeVisitor();
+                LogoList list = possibleList.asList();
+
 
                 try {
-                    Node root = visitor.visit(parser.script());
+                    Node root = visitor.visit(ParserUtils.parse(list.asSource(), "script", false));
                     value = root.eval(scope);
                 }
                 catch (Exception e) {
                     try {
-                        parser = new UCBLogoParser(new ANTLRInputStream(list.asSource()), false);
-                        parser.removeErrorListeners();
-                        parser.addErrorListener(DescriptiveBailErrorListener.INSTANCE);
-                        Node root = visitor.visit(parser.expression());
+                        Node root = visitor.visit(ParserUtils.parse(list.asSource(), "expression", false));
                         value = root.eval(scope);
                     }
                     catch (Exception ex) {

@@ -1,13 +1,11 @@
 package lattelogo.procedure;
 
-import lattelogo.error.DescriptiveBailErrorListener;
 import lattelogo.lang.LogoList;
 import lattelogo.lang.Value;
 import lattelogo.node.Node;
 import lattelogo.node.Scope;
 import lattelogo.parser.NodeVisitor;
-import lattelogo.parser.UCBLogoParser;
-import org.antlr.v4.runtime.ANTLRInputStream;
+import lattelogo.parser.ParserUtils;
 
 /**
  * <pre>
@@ -40,41 +38,36 @@ public class IfElse extends Procedure {
 
         Value possibleList = condition.asBoolean() ? params[1] : params[2];
 
-        if (possibleList.isList()) {
+        if (possibleList != null) {
 
-            // TODO refactor the parser instantiation
+            if (possibleList.isList()) {
 
-            Value value = Value.NOTHING;
-            LogoList list = possibleList.asList();
-            UCBLogoParser parser = new UCBLogoParser(new ANTLRInputStream(list.asSource()), false);
-            parser.removeErrorListeners();
-            parser.addErrorListener(DescriptiveBailErrorListener.INSTANCE);
+                Value value = Value.NOTHING;
+                NodeVisitor visitor = new NodeVisitor();
+                LogoList list = possibleList.asList();
 
-            NodeVisitor visitor = new NodeVisitor();
 
-            try {
-                Node root = visitor.visit(parser.script());
-                value = root.eval(scope);
-            }
-            catch (Exception e) {
                 try {
-                    parser = new UCBLogoParser(new ANTLRInputStream(list.asSource()), false);
-                    parser.removeErrorListeners();
-                    parser.addErrorListener(DescriptiveBailErrorListener.INSTANCE);
-                    Node root = visitor.visit(parser.expression());
+                    Node root = visitor.visit(ParserUtils.parse(list.asSource(), "script", false));
                     value = root.eval(scope);
                 }
-                catch (Exception ex) {
-                    // Ignore
+                catch (Exception e) {
+                    try {
+                        Node root = visitor.visit(ParserUtils.parse(list.asSource(), "expression", false));
+                        value = root.eval(scope);
+                    }
+                    catch (Exception ex) {
+                        // Ignore
+                    }
+                }
+
+                if (value != Value.NOTHING) {
+                    return value;
                 }
             }
-
-            if (value != Value.NOTHING) {
-                return value;
+            else {
+                return scope.resolve(possibleList.asString());
             }
-        }
-        else {
-            return scope.resolve(possibleList.asString());
         }
 
         return Value.NOTHING;

@@ -267,7 +267,7 @@ public class NodeVisitor extends UCBLogoBaseVisitor<Node> {
             ? print if "true ["a]
             a
         */
-        String source = "print (ifelse \"true [\"a] [\"b])";
+        String source = "print if \"false [\"a]";
 
         System.out.println(source);
 
